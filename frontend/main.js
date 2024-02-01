@@ -1,19 +1,16 @@
-window.addEventListener('DOMContentLoaded', (event) =>{
-    getVisitCount();
-})
-
-const functionAPI = "";
-
-const getVisitCount = () => {
-    let count = 30;
-    fetch(functionAPI).then(response => {
-        return response.json()
-    }).then(response => {
-        console.log("Website called function API");
-        count = response.count;
-        document.getElementById("counter").innerText = count;
-    }).catch(function(error){
-        console.log(error);
-    });
-    return count;
-}
+document.addEventListener('DOMContentLoaded', function() {
+    // Fetch the visitor count from your API using a GET request
+    fetch('https://apigateway-viewcount-63w9whta.an.gateway.dev/viewcount', {
+        method: 'POST',  // Specify the POST method
+        headers: {
+            'Content-Type': 'application/json',
+            // Add any additional headers if needed
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Update the visitor count on the webpage
+            document.getElementById('counter').textContent = data.ViewCount;
+        })
+        .catch(error => console.error('Error fetching visitor count:', error));
+});
